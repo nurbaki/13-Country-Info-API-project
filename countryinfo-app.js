@@ -14,11 +14,8 @@ async function allCountrys(){
         document.querySelector(".countries").innerHTML=`<h2>Something went wrong: ${res.status}</h2>`
     
         throw new Error("Hata var");
-    }    
-    
+    }      
     const dataList = await res.json();
-    
-    console.log(dataList);
 
     listeOlustur(dataList); 
 };
@@ -31,8 +28,6 @@ const listeOlustur = (countryArray)=>{
     }
 }
     
-
-
 async function getirCountry(countryCode){
 
 const res = await fetch (`https://restcountries.com/v2/alpha/${countryCode}`);
@@ -59,7 +54,7 @@ const displayScreen = (country)=>{
       <img src=${country.flags.svg} class="card-img-top" alt="...">
         <div class="card-body">
         <h5 class="card-title">${country.name}</h5>
-        <p class="card-text">${country.altSpellings[2]}</p>
+        <p class="card-text">${country.altSpellings[2] ? country.altSpellings[2] : ""}</p>
         </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><i class="fas fa-lg fa-landmark"></i> ${country.capital}</li>
@@ -75,7 +70,6 @@ allCountrys();
 findBtn.onclick = () => {
     let text1 = codeInput.value;
     getirCountry(text1);
-    findVowel(text1);
     codeInput.focus();   
-    console.log(codeInput.value);   
+    codeInput.value="";   
 };
